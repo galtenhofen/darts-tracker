@@ -1,0 +1,21 @@
+#start-button{
+    margin-top: 150px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+.step-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.step-card{
+  margin: 70px auto auto auto;
+  width:35%;
+}
+
+.next-button{
+  margin-left: 30px;
+}

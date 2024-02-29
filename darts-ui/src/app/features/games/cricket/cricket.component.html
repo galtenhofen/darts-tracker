@@ -1,0 +1,193 @@
+
+<div class="container">
+    <div class="cricket-container"></div>
+    <div class="cricket-left-side"></div>
+    <div class="cricket-left-header">
+      <div class="player-turn-div">
+        <div class="center-text player-turn-text">{{currentPlayer.firstName}}'s Turn</div>
+      </div>
+    </div>
+    <div class="cricket-left-bottom"></div>
+    
+    <div class="cricket-left-bottom-stats">
+        <div class="current-stat-header">
+
+        </div>
+        <div class="current-stat-detail">
+
+        </div>
+    </div>
+    <div class="cricket-left-bottom-btns">
+      <!-- <button class="next-player-btn" (click)="onPreviousPlayer()" mat-raised-button color="basic">Previous Player</button> -->
+      <button class="action-btn" (click)="undoTurn()" mat-raised-button color="warn">Undo</button>
+      <button class="action-btn" (click)="finishRound()"  mat-raised-button color="basic">Next Player</button>
+    </div>
+    <div class="cricket-left-bottom-throws">
+      <app-cricket-buttons (buttonHit)="hit($event)" (multiplier)="updateMultiplier($event)"></app-cricket-buttons>
+
+    </div>
+
+    <div class="cricket-right-side">
+       <div class="shade">
+        <div class="cricket-right-header">
+          <div class="left-team-div">
+            <h2 class="chalk-text">{{playerOne.firstName}}</h2>
+          </div>
+          <div class="middle-round-div">
+            <h2 class="chalk-text">Round: {{roundNumber}}</h2>
+          </div>
+          <div class="right-team-div">
+            <h2 class="chalk-text">{{playerTwo.firstName}}</h2>
+          </div>
+        </div>
+
+        <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.twentyHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.twentyHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.twentyHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.twentyHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.twentyHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">20</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.twentyHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.twentyHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.twentyHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.twentyHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.twentyHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.nineteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.nineteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.nineteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.nineteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.nineteenHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">19</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.nineteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.nineteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.nineteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.nineteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.nineteenHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.eighteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.eighteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.eighteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.eighteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.eighteenHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">18</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.eighteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.eighteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.eighteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.eighteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.eighteenHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.seventeenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.seventeenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.seventeenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.seventeenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.seventeenHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">17</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.seventeenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.seventeenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.seventeenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.seventeenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.seventeenHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.sixteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.sixteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.sixteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.sixteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.sixteenHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">16</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.sixteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.sixteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.sixteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.sixteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.sixteenHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.fifteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.fifteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.fifteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.fifteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.fifteenHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">15</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.fifteenHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.fifteenHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.fifteenHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.fifteenHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.fifteenHits<3">O</div>
+            </div>
+          </div>
+
+          <div class="cricket-right-header">
+            <div class="left-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.bullseyeHits"></div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.bullseyeHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="firstPlayerGame.bullseyeHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="firstPlayerGame.bullseyeHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.bullseyeHits<3">O</div>
+            </div>
+            <div class="middle-round-div">
+              <h2 class="chalk-text">Bull</h2>
+            </div>
+            <div class="right-team-div scorebox">
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.bullseyeHits!=0"></div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.bullseyeHits!=1">/</div>
+              <div class="chalk-text-score" [hidden]="secondPlayerGame.bullseyeHits!=2">X</div> 
+              <div class="chalk-text-score-x" [hidden]="secondPlayerGame.bullseyeHits<3">X</div>
+              <div class="chalk-text-score-bull" [hidden]="secondPlayerGame.bullseyeHits<3">O</div>
+            </div>
+          </div>
+
+    </div>  <!-- cricket-right-side -->  
+</div>
+<link href="https://fonts.cdnfonts.com/css/kg-broken-vessels-sketch" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/callie-chalk-font" rel="stylesheet">                
+<link href="https://fonts.cdnfonts.com/css/crayon-libre" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/sf-action-man" rel="stylesheet">
+                
+                
+                
+                
