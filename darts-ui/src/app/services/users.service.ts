@@ -1,12 +1,22 @@
-
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '../models/user/user.model';
 import { Team } from '../models/team.model';
+import { HttpService } from './http.service';
+import  UserResponse  from '../models/user/user-response.model';
+import { MessageResponse } from '../models/message-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+
+  constructor(private httpService: HttpService) { 
+    }
+
+  private api = 'http://localhost:8080';
+  private getUsersPath = '/user/all';
+  private addUsersPath = '/user/add';
  
   users: User[] = [
     {userId: 1, firstName: 'Gabe', lastName: 'Altenhofen', email: 'heyitsgabe@hotmail.com'},
@@ -48,7 +58,11 @@ export class UserService {
   ];
 
 
-  getUsers(): User[] {
+   getUsers(): Observable<UserResponse>{
+     return this.httpService.getWithToken(this.getURL(this.api, this.getUsersPath));
+   }
+
+  getUsersStatic(): User[]{
     return this.users;
   }
 
@@ -56,8 +70,13 @@ export class UserService {
     return this.users.find((user) => user.userId === userId);
   }
 
-  addUser(user: User): void {
+  addUserStatic(user: User): void {
     this.users.push(user);
+  }
+
+  addUser(firstName: string, lastName: string, email: string):Observable<MessageResponse>{
+    const user: User = { userId: 0 ,firstName, lastName, email };
+    return this.httpService.postWithToken(this.getURL(this.api, this.addUsersPath),user)
   }
 
   deleteUser(userId: number): void {
@@ -72,4 +91,13 @@ export class UserService {
     this.teams.push(newTeam);
     console.log('service   teams: ', this.teams);
   }
+
+
+
+
+  //TODO move to shared Util maybe
+   getURL(api: string, route: string) {
+    return `${api}${route}`;
+  }
+
 }

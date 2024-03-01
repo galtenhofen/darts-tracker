@@ -1,1 +1,12 @@
-<p>cricket-stats works!</p>
+<div class="stat-container">
+    <div class="stat-grid">
+        <div class="stats-text stats-header">Pure Hits</div>
+        <div class="stats-text stats-header">Total Hits</div>
+        <div class="stats-text stats-header">BiBs</div>
+        <div class="stats-text stats-header">Last</div>
+        <div class="stats-text stats-value">{{getAverageHitsPerRound()| number:'1.1-2'}}</div>
+        <div class="stats-text stats-value">{{getAverageMultiplierPerRound()| number:'1.1-2'}}</div>
+        <div class="stats-text stats-value">{{currentGame.bibs}}</div>
+        <div class="stats-text stats-value">{{getMostRecentTotal()}}</div>
+</div>
+</div>

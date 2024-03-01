@@ -1,0 +1,50 @@
+.stat-container{
+height: 100%;
+width: 100%;
+  }
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100%;
+    width: 100%;
+    }
+  
+.stats-text{
+    color: white;
+    /* font-family: 'SF Action Man', sans-serif; */
+    /* font-family: 'Callie Chalk Font', sans-serif; */
+     font-family: 'Komika Display', sans-serif;
+    height: 100%;
+    width: 100%;
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    text-align: center; /* Center text inside the element */
+    }
+    
+.stats-header{
+    font-size: 28px;
+    text-decoration: underline; 
+    align-items: flex-end;
+}    
+
+.stats-value{
+    font-size:40px;
+    align-items: flex-start;
+
+}    
+
+.stats-header::after {
+    content: ''; /* Create the underline */
+    position: absolute; /* Position the underline */
+    bottom: 0; /* Position the underline at the bottom */
+    left: 0; /* Position the underline at the left */
+    width: 100%; /* Set the width of the underline */
+    height: 2px; /* Set the height of the underline */
+    background-color: white; /* Set the color of the underline */
+    margin-top: 5px; /* Adjust the space between text and underline */
+  }

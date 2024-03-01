@@ -1,7 +1,7 @@
 // teams.component.ts
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/models/team.model';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user/user.model';
 import { UserService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,7 +28,7 @@ export class TeamComponent implements OnInit {
   }
 
   refreshTable(): void {
-    this.availableUsers = this.userService.getUsers();
+    this.availableUsers = this.userService.getUsersStatic();
     this.teams = this.userService.getTeams();
     this.dataSource.data = this.teams;
   }

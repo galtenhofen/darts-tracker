@@ -10,12 +10,13 @@
     <div class="cricket-left-bottom"></div>
     
     <div class="cricket-left-bottom-stats">
-        <div class="current-stat-header">
-
-        </div>
-        <div class="current-stat-detail">
-
-        </div>
+      <app-cricket-stats   
+      [firstPlayerGame]="firstPlayerGame" 
+      [secondPlayerGame]="secondPlayerGame"
+      [currentRound]="currentRound" 
+      [currentPlayer]="currentPlayer"
+      [currentGame]="currentGame" 
+      ></app-cricket-stats>
     </div>
     <div class="cricket-left-bottom-btns">
       <!-- <button class="next-player-btn" (click)="onPreviousPlayer()" mat-raised-button color="basic">Previous Player</button> -->
@@ -170,7 +171,7 @@
               <div class="chalk-text-score-bull" [hidden]="firstPlayerGame.bullseyeHits<3">O</div>
             </div>
             <div class="middle-round-div">
-              <h2 class="chalk-text">Bull</h2>
+              <h2 class="chalk-text">Bullseye</h2>
             </div>
             <div class="right-team-div scorebox">
               <div class="chalk-text-score" [hidden]="secondPlayerGame.bullseyeHits!=0"></div>

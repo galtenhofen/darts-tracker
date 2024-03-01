@@ -32,6 +32,7 @@ export class CricketComponent implements OnInit {
   awayTeamGame!: CricketTeamGame;
   firstPlayerGame!: CricketGame;
   secondPlayerGame!: CricketGame;
+  currentGame!: CricketGame;
   currentTeamRound!: CricketRoundTeam;
   currentRound!: CricketRound;
   key: any;
@@ -225,9 +226,9 @@ console.table(this.playerList);
   startNewRound() {
     console.log('***Enter startNewRound');
     this.currentRound = new CricketRound(this.currentPlayer.playerId);
-    const playerGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
+    this.currentGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
       this.firstPlayerGame : this.secondPlayerGame;
-    console.log('currentTarget: ', playerGame.currentTarget);
+    console.log('currentTarget: ', this.currentGame.currentTarget);
   }
   
   startNewTeamRound() {
@@ -433,54 +434,6 @@ console.table(this.playerList);
   }
 
 
-
-
-
-  // checkForClosed() {
-  //   const sectionsToCheck = [20, 19, 18, 17, 16, 15, 25];
-  
-  //   for (const section of sectionsToCheck) {
-  //     switch (section) {
-  //       case 20:
-  //         this.updateClosedStatus('twenty');
-  //         break;
-  //       case 19:
-  //         this.updateClosedStatus('nineteen');
-  //         break;
-  //       case 18:
-  //         this.updateClosedStatus('eighteen');
-  //         break;
-  //       case 17:
-  //         this.updateClosedStatus('seventeen');
-  //         break;
-  //       case 16:
-  //         this.updateClosedStatus('sixteen');
-  //         break;
-  //       case 15:
-  //         this.updateClosedStatus('fifteen');
-  //         break;
-  //       case 25:
-  //         this.updateClosedStatus('bullseye');
-  //         break;
-  //     }
-  //   }
-  // }
-
-  // updateClosedStatus(prefix: string): void {
-  //   const playerGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
-  //   this.firstPlayerGame : this.secondPlayerGame;
-  //   const hitsPropertyName = `${prefix}Hits`;
-  //   const closedPropertyName = `${prefix}Closed`;
-  //   const hits = playerGame[hitsPropertyName];
-  // if (typeof playerGame[hitsPropertyName] === 'number') {
-  //   const hits = playerGame[hitsPropertyName] as number;
-  //   if (hits > 2) {
-  //     playerGame[closedPropertyName] = true;
-  //   }
-  // }
-  // }
-
-
   hit(num : number){
     switch (num) {
       case 20: 
@@ -507,232 +460,21 @@ console.table(this.playerList);
     this.multiplier = num;
       }
 
-  // onHit20(multiplier: number) {
-  //   console.log('hit 20');
-  //   const hit = new CricketHit(20, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.currentRound.darts.length < 3 && this.firstPlayerGame.twentyClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.twenties++;
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //       /*if (this.firstPlayerGame.twenties > 2) {
-  //         this.firstPlayerGame.twentyClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.currentRound.darts.length <= 3 && this.secondPlayerGame.twentyClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.twenties++;
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //      /* if (this.secondPlayerGame.twenties > 2) {
-  //         this.secondPlayerGame.twentyClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-
-  //   }
-  // }
-  // onHit19(multiplier: number) {
-  //   console.log('hit 19');
-  //   const hit = new CricketHit(19, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.nineteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.nineteens++;
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //    /*   if (this.firstPlayerGame.nineteens > 2) {
-  //         this.firstPlayerGame.nineteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.nineteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.nineteens++;
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //     /*  if (this.secondPlayerGame.nineteens > 2) {
-  //         this.secondPlayerGame.nineteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   }
-  // }
-
-  // onHit18(multiplier: number) {
-  //   console.log('hit 18');
-  //   const hit = new CricketHit(18, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.eighteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.eighteens++;
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //      /* if (this.firstPlayerGame.eighteens > 2) {
-  //         this.firstPlayerGame.eighteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.eighteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.eighteens++;
-
-  //   //      this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //    /*   if (this.secondPlayerGame.eighteens > 2) {
-  //         this.secondPlayerGame.eighteenClosed = true;
-  //       }*/
-  //    }
-  //     this.processThrow();
-  //   }
-  // }
-
-  // onHit17(multiplier: number) {
-  //   console.log('hit 17');
-  //   const hit = new CricketHit(17, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.seventeenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.seventeens++;
-
-  //        // this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //     /*  if (this.firstPlayerGame.seventeens > 2) {
-  //         this.firstPlayerGame.seventeenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.seventeenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.seventeens++;
-
-  //      //   this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //      /* if (this.secondPlayerGame.seventeens > 2) {
-  //         this.secondPlayerGame.seventeenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   }
-  // }
-  // onHit16(multiplier: number) {
-  //   console.log('hit 16');
-  //   const hit = new CricketHit(16, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.sixteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.sixteens++;
-
-  //     //    this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //     /*  if (this.firstPlayerGame.sixteens > 2) {
-  //         this.firstPlayerGame.sixteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.sixteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.sixteens++;
-
-  //     //    this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //       /*if (this.secondPlayerGame.sixteens > 2) {
-  //         this.secondPlayerGame.sixteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   }
-  // }
-  // onHit15(multiplier: number) {
-  //   console.log('hit 15');
-  //   const hit = new CricketHit(15, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.fifteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.fifteens++;
-
-  //         //  this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //      /* if (this.firstPlayerGame.fifteens > 2) {
-  //         this.firstPlayerGame.fifteenClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.fifteenClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.fifteens++;
-
-  //         //  this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //       /*if (this.secondPlayerGame.fifteens > 2) {
-  //         this.secondPlayerGame.fifteenClosed = true;
-  //       }*/
-  //       this.processThrow();
-  //     }
-  //   }
-  // }
-  // onHitBullseye(multiplier: number) {
-  //   console.log('hit bull');
-  //   const hit = new CricketHit(25, multiplier);
-  //   if (this.currentRound.playerId === this.firstPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.firstPlayerGame.bullseyeClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.firstPlayerGame.bullseyes++;
-
-  //     //    this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //     /*  if (this.firstPlayerGame.bullseyes > 2) {
-  //         this.firstPlayerGame.bullseyeClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   } else if (this.currentRound.playerId === this.secondPlayerGame.player.playerId) {
-  //     if (this.throwNum <= 3 && this.secondPlayerGame.bullseyeClosed === false) {
-  //       for (let i = 0; i < multiplier; i++) {
-  //         this.secondPlayerGame.bullseyes++;
-
-  //     //    this.addScore(20);
-  //       }
-  //       this.currentRound.darts.push(hit);
-  //      /* if (this.secondPlayerGame.bullseyes > 2) {
-  //         this.secondPlayerGame.bullseyeClosed = true;
-  //       }*/
-  //     }
-  //     this.processThrow();
-  //   }
-  // }
 
   hitSection(section: number, property: string ,multiplier: number) {
     //this.checkForClosed();
     console.log(`hit ${section}`);
     const hit = new CricketHit(section, multiplier);
-    const playerGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
+    this.currentGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
       this.firstPlayerGame : this.secondPlayerGame;
-    const target = playerGame.currentTarget;
+    const target = this.currentGame.currentTarget;
     const closedProp = `${property}Closed`;
   console.log('section',section);
-    if (section === target && this.currentRound.dartsLeft > 0 && !playerGame[closedProp]) {
+    if (section === target && this.currentRound.dartsLeft > 0 && !this.currentGame[closedProp]) {
       const sectionProp = `${property}Hits`;
       console.log('sectionProp',sectionProp);
         for (let i = 0; i < multiplier; i++) {
-          playerGame[sectionProp] = (playerGame[sectionProp] as number) + 1;
+          this.currentGame[sectionProp] = (this.currentGame[sectionProp] as number) + 1;
         }
       this.currentRound.darts.push(hit);
     } else{
@@ -993,9 +735,9 @@ console.log('hitSection   secondPlayerGame: ', this.secondPlayerGame);
 
   processThrow() {
     const BiB = this.currentRound.darts.filter(d => d.target > 0 ).length === ((this.currentRound.bib+1)*3); 
-    const playerGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
+    this.currentGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
           this.firstPlayerGame : this.secondPlayerGame;
-    if(!playerGame.bullseyeClosed){
+    if(!this.currentGame.bullseyeClosed){
     if (this.currentRound.dartsLeft > 0) {
     }  
     else if(BiB){
@@ -1015,7 +757,7 @@ console.log('hitSection   secondPlayerGame: ', this.secondPlayerGame);
             this.currentRound.bib++;
             this.moreDarts = true;
             this.currentPlayer.bibs++;
-            playerGame.bibs++;
+            this.currentGame.bibs++;
           
         } else {
           this.undoTurn();
@@ -1054,11 +796,11 @@ console.log('hitSection   secondPlayerGame: ', this.secondPlayerGame);
       if (BiB){
         this.currentRound.bib++;
         this.currentPlayer.bibs++;
-        playerGame.bibs++;
+        this.currentGame.bibs++;
         
       }
       //TODO:  check if Home Team for redemption
-      playerGame.isWinner = true;
+      this.currentGame.isWinner = true;
       this.gameOver(this.currentPlayer.firstName);
     }
   }

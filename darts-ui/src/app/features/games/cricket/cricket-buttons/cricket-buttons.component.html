@@ -1,4 +1,4 @@
-<div class="buttonHolder">
+ <div class="buttonHolder">
     <div class="row">
         <a *ngIf="currentMultiplier===2" (click)="toggleMultiplier(2)" class="button double-active"></a>
         <a *ngIf="currentMultiplier!=2" (click)="toggleMultiplier(2)" class="button double"></a>
@@ -17,6 +17,69 @@
     <a (click)="hit(15)" class="button fifteen" [ngClass]="checkMultipler()"></a>
     <a (click)="hit(25)" class="button bullseye" [ngClass]="checkMultipler()"></a>
     </div>
-  </div>
-
+  </div> 
+  <!-- <div class="buttonHolder">
+    <div class="row">
+        <button *ngIf="currentMultiplier===2" (click)="toggleMultiplier(2)" class="pushable double-active">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">Double</span>
+        </button>
+        <button *ngIf="currentMultiplier!=2" (click)="toggleMultiplier(2)" class="pushable double">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">Double</span>
+        </button>
+        <button *ngIf="currentMultiplier!=3" (click)="toggleMultiplier(3)" class="pushable triple">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">Triple</span>
+        </button>
+        <button *ngIf="currentMultiplier===3" (click)="toggleMultiplier(3)" class="pushable triple-active">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">Triple</span>
+        </button>
+    </div>
+  
+    <div class="row">
+        <button (click)="hit(20)" class="pushable twenty" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">20</span>
+        </button>
+        <button (click)="hit(19)" class="pushable nineteen" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">19</span>
+        </button>
+        <button (click)="hit(18)" class="pushable eighteen" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">18</span>
+        </button>
+        <button (click)="hit(17)" class="pushable seventeen" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">17</span>
+        </button>
+    </div>
+  
+    <div class="row">
+        <button (click)="hit(16)" class="pushable sixteen" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">16</span>
+        </button>
+        <button (click)="hit(15)" class="pushable fifteen" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">15</span>
+        </button>
+        <button (click)="hit(25)" class="pushable bullseye" [ngClass]="checkMultipler()">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front">Bullseye</span>
+        </button>
+    </div> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

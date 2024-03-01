@@ -6,10 +6,10 @@
     <mat-card>
       <mat-card-content>
         <div>
-          <button mat-raised-button (click)="addUser()">Add User</button>
+          <button mat-raised-button (click)="openAddUserDialog()">Add User</button>
         </div>
 
-        <table *ngIf="userList.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table *ngIf="userList" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="userId">
             <th mat-header-cell *matHeaderCellDef>ID</th>
             <td mat-cell *matCellDef="let user">{{ user.userId }}</td>
@@ -39,7 +39,7 @@
         </table>
 
         <div class="container" fxLayout="row" fxLayoutAlign="center none">
-          <div fxFlex="50%" class="text-center no-records animate" *ngIf="userList.length == 0">
+          <div fxFlex="50%" class="text-center no-records animate" *ngIf="!userList">
             <mat-icon>people_outline</mat-icon>
             <p>No users exist.</p>
           </div>

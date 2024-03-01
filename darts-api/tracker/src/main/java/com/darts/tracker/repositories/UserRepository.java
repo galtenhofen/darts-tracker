@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.darts.tracker.entities.User;
+import com.darts.tracker.entities.UserEntity;
 
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Modifying
     @Transactional
     @Query(value = "insert into User (first_name, last_name,email) " +

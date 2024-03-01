@@ -12,6 +12,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { StartOptionsComponent } from './start-options/start-options.component';
 import { UserListComponent } from './users/user-list.component';
 import { TeamComponent } from './teams/team.component';
+import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { TeamComponent } from './teams/team.component';
         LayoutComponent,
         StartOptionsComponent,
         UserListComponent,
-        TeamComponent
+        TeamComponent,
+        AddUserDialogComponent
 
     ],
     exports: [

@@ -8,9 +8,9 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class AddUserRequest {
-    private String firstName;
-    private String lastName;
-    private String email;
-
+public class User {
+     Integer userId;
+     String firstName;
+     String lastName;
+     String email;
 }

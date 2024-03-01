@@ -1,6 +1,4 @@
 
-  
-
 html, body{
     min-height:100%;
   }
@@ -24,8 +22,6 @@ html, body{
   
   
           .button{
-              /* background-image: -webkit-linear-gradient(to top, #f4f1ee, #fff);
-              background-image: linear-gradient(to top, #f4f1ee, #fff); */
               border-radius: 50%;
               box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
               float:left;
@@ -137,8 +133,6 @@ html, body{
         }
   
           .button:hover{
-              /* background-image: -webkit-linear-gradient(to top, #fff, #f4f1ee);
-              background-image: linear-gradient(to top, #fff, #f4f1ee); */
               color:#0088cc;
           }
 
@@ -153,66 +147,56 @@ html, body{
           .nineteen:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#f99e4e;
-              text-shadow:0px 0px 6px #f99e4e; */
+
           }
   
           .eighteen:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#83d244;
-              text-shadow:0px 0px 6px #83d244; */
+
           }
   
           .seventeen:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+
           }
   
           .sixteen:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+
           }
           .fifteen:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+
           }
           .bullseye:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+         
           }
           .double:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+          
           }
           .triple:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+           
           }
 
           .double-active:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+            
           }
           .triple-active:hover:after{
             color: rgb(0, 0, 0);
             text-shadow:0px 0px 6px rgb(255, 255, 255);
-              /* color:#eb2f2f;
-              text-shadow:0px 0px 6px #eb2f2f; */
+           
           }
 
           .button:active{
@@ -225,7 +209,7 @@ html, body{
   
           .button:active:after{
             color:white;
-              /* color:#dbd2d2; */
+
               text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
           }
-
+   

@@ -6,11 +6,12 @@ import { CricketGame } from 'src/app/models/cricket/cricket-game';
 import { CricketRoundTeam } from 'src/app/models/cricket/cricket-round-team';
 import { DataService } from 'src/app/services/data.service';
 import Swal from 'sweetalert2';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user/user.model';
 import { Team } from 'src/app/models/team.model';
 import { UserService } from 'src/app/services/users.service';
 import { CricketSettings, CricketSettingsImpl } from 'src/app/models/settings/cricket-settings.model';
 import { Router } from '@angular/router';
+import UserResponse from 'src/app/models/user/user-response.model';
 
 @Component({
   selector: 'app-start-options',
@@ -69,7 +70,7 @@ export class StartOptionsComponent implements OnInit {
     });
     //this.cricketSettings = this.dataService.getCurrentCricketOptions();
     console.log('init start options', this.cricketSettings);
-    this.availablePlayers = this.userService.getUsers();
+    this.getUsers();
     this.availableTeams = this.userService.getTeams();
   }
 
@@ -79,6 +80,17 @@ export class StartOptionsComponent implements OnInit {
   //   this.userList.push(this.awayTeamGame.team.playerTwo);
   //   this.userList.push(this.homeTeamGame.team.playerTwo);
   // }
+
+  getUsers(): void {
+    this.userService.getUsers().subscribe({
+      next: (response: UserResponse) => {
+        this.availablePlayers = response.users; // Assign the returned UserResponse to availablePlayers
+      },
+      error: (error: any) => {
+        console.error('Error fetching users:', error);
+      }
+    });
+  }
 
   createNewTeam(){
     console.log('Enter createNewTeam');

@@ -1,7 +1,9 @@
 package com.darts.tracker.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
-
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-
-import com.darts.tracker.entities.User;
 import com.darts.tracker.messages.MessageResponse;
+import com.darts.tracker.messages.UserResponse;
 import com.darts.tracker.models.AddUserRequest;
+import com.darts.tracker.models.User;
 import com.darts.tracker.services.UserService;
 
-@RestController // This means that this class is a Controller
-@RequestMapping("/user") // This means URL's start with /demo (after Application path)
+@Slf4j
+@RestController 
+@RequestMapping("/user") 
 public class UserController {
+  private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
   @Autowired 
   private UserService userService;
@@ -30,8 +33,8 @@ public class UserController {
   }
 
   @GetMapping("/all")
-  public List<User> getAllUsers() {
-    // This returns a JSON or XML with the users
+  public UserResponse getAllUsers() {
+    log.info("Users: {}",userService.getAllUsers());
     return userService.getAllUsers();
   }
 }
