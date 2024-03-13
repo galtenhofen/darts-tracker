@@ -32,4 +32,10 @@ export class HttpService {
         catchError( this.errorHandler.handleError('POST ' + uri)));
     }
 
+    deleteWithToken<T>(uri: string): Observable<any> {
+      return this.httpClient.delete<T>(encodeURI(uri), { responseType: 'json' }).pipe(
+        catchError(this.errorHandler.handleError('DELETE ' + uri))
+      );
+    }
+
 }

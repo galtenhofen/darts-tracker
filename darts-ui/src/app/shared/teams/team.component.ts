@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user/user.model';
 import { UserService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
 import { MatTableDataSource } from '@angular/material/table';
+import UsersResponse from 'src/app/models/user/users-response.model.';
 
 @Component({
   selector: 'app-team',
@@ -28,9 +29,20 @@ export class TeamComponent implements OnInit {
   }
 
   refreshTable(): void {
-    this.availableUsers = this.userService.getUsersStatic();
-    this.teams = this.userService.getTeams();
-    this.dataSource.data = this.teams;
+    //this.availableUsers = this.userService.getUsers();
+
+    this.userService.getUsers().subscribe({
+      next: (response: UsersResponse) => {
+        console.log('response',response);
+        this.availableUsers = response.users;
+        this.teams = this.userService.getTeams();
+        this.dataSource.data = this.teams;
+      },
+      error: (error: any) => {
+        console.error('Error fetching users:', error);
+      }
+    });
+    
   }
 
   openCreateTeamDialog(): void {

@@ -8,10 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { User, UserImpl } from 'src/app/models/user/user.model';
 import { NGXLogger } from 'ngx-logger';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import UserResponse from 'src/app/models/user/user-response.model';
+import UsersResponse from 'src/app/models/user/users-response.model.';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserDialogComponent } from '../add-user-dialog/add-user-dialog.component';
 import { MessageResponse } from 'src/app/models/message-response.model';
+import UserResponse from 'src/app/models/user/user-response.model';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -42,7 +44,7 @@ export class UserListComponent implements OnInit {
 
   refreshTable(): void {
     this.userService.getUsers().subscribe({
-      next: (response: UserResponse) => {
+      next: (response: UsersResponse) => {
         console.log('response',response);
         this.userList = response.users;
         console.log('this.userList',this.userList);
@@ -75,7 +77,7 @@ export class UserListComponent implements OnInit {
     this.userService.addUser(firstName, lastName, email).subscribe({
       next: (response: MessageResponse) => {
         console.log('User added successfully:', response);
-        // Optionally, you can refresh the user list or perform other actions after adding the user
+      
         this.refreshTable();
       },
       error: (error: any) => {
@@ -83,11 +85,44 @@ export class UserListComponent implements OnInit {
       }
     });
   }
+
+
   
 
-  deleteUser(userId: number): void {
-    this.userService.deleteUser(userId);
-    //this.refreshTable();
+  deleteUser(user: User): void {
+
+
+
+    Swal.fire({
+      title: 'Hold up',
+      text: 'Do you really want to delete ' + user.firstName + ' ' + user.lastName + '?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'I\'m sure',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.userService.deleteUser(user.userId).subscribe({
+          next: (response: MessageResponse) => {
+            if (response.returnCode != 200)
+            {
+              console.log('userId ' + user.userId + ' was deleted');
+            }
+            else{
+              console.log('Problem: ', response.returnMessage);
+            }
+            this.refreshTable();
+          }
+        })
+    } 
+
+  });
+
+
+   
   }
 
 

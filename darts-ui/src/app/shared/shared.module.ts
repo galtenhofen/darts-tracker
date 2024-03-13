@@ -9,10 +9,10 @@ import { ContentPlaceholderAnimationComponent } from './content-placeholder-anim
 import { LocalDatePipe } from './pipes/local-date.pipe';
 import { YesNoPipe } from './pipes/yes-no.pipe';
 import { LayoutComponent } from './layout/layout.component';
-import { StartOptionsComponent } from './start-options/start-options.component';
 import { UserListComponent } from './users/user-list.component';
 import { TeamComponent } from './teams/team.component';
 import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.component';
+import { CricketOptionsComponent } from '../features/games/cricket/cricket-options/cricket-options.component';
 
 
 @NgModule({
@@ -21,7 +21,7 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
         CustomMaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        FlexLayoutModule,
+        FlexLayoutModule
     ],
     declarations: [
         ConfirmDialogComponent,
@@ -30,7 +30,6 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
         LocalDatePipe,
         YesNoPipe,
         LayoutComponent,
-        StartOptionsComponent,
         UserListComponent,
         TeamComponent,
         AddUserDialogComponent
@@ -46,7 +45,6 @@ import { AddUserDialogComponent } from './add-user-dialog/add-user-dialog.compon
         ContentPlaceholderAnimationComponent,
         LocalDatePipe,
         YesNoPipe,
-        StartOptionsComponent,
         UserListComponent,
         TeamComponent
     ]

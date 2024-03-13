@@ -3,11 +3,11 @@ import { User } from "./user.model";
 export default class UserResponse {
   returnCode: number;
   message: string;
-  users: User[];
+  user: User;
 
-  constructor(returnCode: number, message: string, users: User[]) {
+  constructor(returnCode: number, message: string, user: User) {
     this.returnCode = returnCode;
     this.message = message;
-    this.users = users;
+    this.user = user;
   }
 }

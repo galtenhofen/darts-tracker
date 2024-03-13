@@ -1,0 +1,8 @@
+<div *ngIf="gameType===''" class ="container-fluid" style="height: 100%; margin-top: 70px; margin-bottom: 70px; text-align:center;">
+    <div class="single-btn-container"> 
+        <button mat-raised-button color="primary" id="start-team-button" (click)="startTeam()" > Team Game  </button>
+        <button mat-raised-button color="primary" id="start-button" (click)="start()" > Individual Game </button>
+        <!-- <button mat-raised-button color="primary" id="start-button" (click)="enableQuickStart('individual')" > Individual Game </button> -->
+        <button mat-raised-button color="primary" id="practice-button" (click)="enableQuickStart('practice')" > Practice Round </button>
+      </div>
+  </div>

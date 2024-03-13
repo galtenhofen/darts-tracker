@@ -40,7 +40,14 @@
 
 .left-menu-container {
   display: flex;
-  width: 90%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-menu-container {
+  display: flex;
+width: 90%;
   justify-content: center;
   align-items: center;
 }

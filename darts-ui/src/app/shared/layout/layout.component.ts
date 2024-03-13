@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { Router,NavigationStart ,NavigationEnd, NavigationExtras, ActivatedRoute  } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { SpinnerService } from '../../core/services/spinner.service';
 import { AuthGuard } from 'src/app/core/guards/auth.guard';
 import { MatSidenav } from '@angular/material/sidenav';
-import { DataService } from 'src/app/services/data.service';
+import { CricketService } from 'src/app/services/cricket.service';
 
 @Component({
     selector: 'app-layout',
@@ -17,6 +17,7 @@ import { DataService } from 'src/app/services/data.service';
 export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     @ViewChild('snav', { static: false }) snav!: MatSidenav;
     private _mobileQueryListener: () => void;
+   // visibility$: Observable<boolean> | null = null;
     mobileQuery: MediaQueryList;
     showSpinner: boolean = false;
     userName: string = "";
@@ -33,12 +34,13 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         private authGuard: AuthGuard,
         private route: Router,
         private activatedRoute: ActivatedRoute,
-        private dataService: DataService) {
+        private dataService: CricketService) {
 
+           
        this.currentUrl = route.url;
 
         this.mobileQuery = this.media.matchMedia('(max-width: 10000px)');
-        this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
         // tslint:disable-next-line: deprecation
         this.mobileQuery.addListener(this._mobileQueryListener);
     }
@@ -59,7 +61,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
         this.isAdmin = user.isAdmin;
         this.userName = user.fullName;
-
+        //this.visibility$ = this.spinnerService.visibility;
         // Auto log-out subscription
         const timer$ = timer(2000, 5000);
         this.autoLogoutSubscription = timer$.subscribe(() => {
@@ -85,7 +87,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.changeDetectorRef.detectChanges();
+        //this.changeDetectorRef.detectChanges();
     }
 
     reloadRoute() {

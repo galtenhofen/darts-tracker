@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, Input } from '@angular/core';
-import { DataService } from 'src/app/services/data.service';
+import { CricketService } from 'src/app/services/cricket.service';
 import { UserService } from 'src/app/services/users.service';
 import { CricketPlayer } from 'src/app/models/cricket/cricket-player';
 import {CricketTeam} from 'src/app/models/cricket/cricket-team';
@@ -10,6 +10,12 @@ import { CricketTeamGame } from 'src/app/models/cricket/cricket-team-game';
 import {CricketHit} from 'src/app/models/cricket/cricket-hit';
 import Swal from 'sweetalert2';
 import { CricketSettings } from 'src/app/models/settings/cricket-settings.model';
+import UserResponse from 'src/app/models/user/user-response.model';
+import { User } from 'src/app/models/user/user.model';
+// import { Store, select } from '@ngrx/store';
+// import { GameMetaState } from 'src/app/store/game.reducer';
+// import { GameMeta } from 'src/app/store/game.actions';
+import { Observable, Subscription, of } from 'rxjs';
 
 @Component({
   selector: 'app-cricket',
@@ -17,10 +23,10 @@ import { CricketSettings } from 'src/app/models/settings/cricket-settings.model'
   styleUrls: ['./cricket.component.css']
 })
 export class CricketComponent implements OnInit {
-  cricketSettings!: CricketSettings;
+  cricketSettings: CricketSettings | null = null;
   multiplier: number = 1;
-  playerOne: CricketPlayer = new CricketPlayer(998,'Player 1','');
-  playerTwo: CricketPlayer = new CricketPlayer(999,'Player 2','');;
+  playerOne: CricketPlayer = new CricketPlayer(0,'','');
+  playerTwo: CricketPlayer = new CricketPlayer(0,'','');;
   playerThree!: CricketPlayer;
   playerFour!: CricketPlayer;
   availablePlayers: any[]=[];
@@ -38,7 +44,7 @@ export class CricketComponent implements OnInit {
   key: any;
   inOrder = false;
   quickStart = true;
-  gameStarted = false;
+  gameStarted : boolean = false;
   playerList: CricketPlayer[] = [];
   playerIdList: number[] = [];
   currentPlayer!: CricketPlayer;
@@ -50,6 +56,7 @@ export class CricketComponent implements OnInit {
   showSingles = true;
   showDoubles = false;
   showTriples = false;
+  gameType: string = '';
 
 
   @HostListener('window:keyup', ['$event'])
@@ -94,13 +101,20 @@ export class CricketComponent implements OnInit {
     }
   }
 
-  constructor(public dataService: DataService, public userService: UserService) { }
+  constructor(public cricketService: CricketService, public userService: UserService) {
+   }
+
   ngOnInit() {
-    this.dataService.getCurrentCricketOptions().subscribe(data=>{
+      this.cricketService.getCurrentCricketOptions().subscribe(data=>{
+      console.log('settings: ', data);
       this.cricketSettings = data;
+      this.gameType = data.gameType;
+      this.playerIdList = data.playerIdList;
+      
+      this.gameSetup();
     });
-    console.log('settings: ', this.cricketSettings);
-    this.gameSetup();
+  
+
 
   }
 
@@ -109,35 +123,57 @@ export class CricketComponent implements OnInit {
        this.buildTeams();
     }
     else {  
-      this.buildPlayers();
-      this.setOrder();
-      this.startNewRound();
+      this.retrievePlayers();
+     //this.setOrder();
+      
     }
   }
 
-  buildPlayers(){
-    let user1 = this.userService.getUserById(this.cricketSettings.playerIdList[0]);
-    console.log('user1', user1);
-    if (user1 !== undefined) {
-    this.playerOne = new CricketPlayer(this.cricketSettings.playerIdList[0], user1.firstName, user1.lastName, undefined);
-    this.firstPlayerGame = new CricketGame(this.playerOne);
-    console.log('buildPlayers  this.playerOne', this.playerOne);
-    console.log('buildPlayers  this.firstPlayerGame', this.firstPlayerGame);
-    this.playerList.push(this.playerOne);
-}
-    let user2 = this.userService.getUserById(this.cricketSettings.playerIdList[1]);
-    console.log('user2', user2);
-    if (user2 !== undefined) {
-    this.playerTwo = new CricketPlayer(this.cricketSettings.playerIdList[1], user2.firstName, user2.lastName, undefined);
-    this.secondPlayerGame = new CricketGame(this.playerTwo);
-    console.log('buildPlayers  this.playerTwo', this.playerTwo);
-    console.log('buildPlayers  this.secondPlayerGame', this.secondPlayerGame);
-    this.playerList.push(this.playerTwo);
-}  
-
-this.currentPlayer = this.playerOne;
-console.table(this.playerList);
+  retrievePlayers(){
+    if(this.cricketSettings != null){
+    for (let i = 0; i < this.cricketSettings.playerIdList.length; i++) {
+      this.getUser(this.cricketSettings.playerIdList[i], i+1); 
+    }
   }
+
+  }
+
+  getUser(userId: number, playerNumber: number){
+    this.userService.getUserById(userId).subscribe({
+        next: (response:UserResponse) =>
+        {
+          if (response.user != undefined){
+            console.log('foundUser: ', response.user);
+          this.buildPlayer(response.user, playerNumber);
+          }
+        },
+        error: (error: any) => {
+          console.error('Error fetching users:', error);
+        }
+      }
+     )
+  }
+
+  buildPlayer(user : User, playerNumber: number){
+    if (this.cricketSettings != null){
+    if (playerNumber === 1){
+    this.playerOne = new CricketPlayer(this.cricketSettings.playerIdList[0], user.firstName, user.lastName, undefined);
+    this.firstPlayerGame = new CricketGame(this.playerOne);
+    this.playerList.push(this.playerOne);
+    }
+    else {
+      this.playerTwo = new CricketPlayer(this.cricketSettings.playerIdList[1], user.firstName, user.lastName, undefined);
+      this.secondPlayerGame = new CricketGame(this.playerTwo);
+      this.playerList.push(this.playerTwo);
+    }
+    if(this.playerOne.playerId != 0 && this.playerTwo.playerId != 0){
+    this.currentPlayer = this.playerOne;
+    this.setOrder();
+    }
+  }
+    console.log('playersList built: ',this.playerList);
+  }
+
 
   buildTeams(){
 
@@ -201,7 +237,7 @@ console.table(this.playerList);
     }
   }
 
-  onSkipPlayer() {
+  skipToNextPlayer() {
     this.undoTurn();
     if (this.playerIterator < (this.playerList.length - 1)) {
       this.playerIterator++;
@@ -210,9 +246,10 @@ console.table(this.playerList);
       this.playerIterator = 0;
       this.currentPlayer = this.playerList[this.playerIterator];
     }
+    this.startNewRound();
   }
 
-  onPreviousPlayer() {
+  goToPreviousPlayer() {
     this.undoTurn();
     if (this.playerIterator < (this.playerList.length - 1)) {
       this.playerIterator--;
@@ -221,16 +258,36 @@ console.table(this.playerList);
       this.playerIterator = 0;
       this.currentPlayer = this.playerList[this.playerIterator];
     }
+    this.startNewRound();
   }
 
   startNewRound() {
     console.log('***Enter startNewRound');
     this.currentRound = new CricketRound(this.currentPlayer.playerId);
+    console.log('currentRound: ', this.currentRound);
     this.currentGame = this.currentRound.playerId === this.firstPlayerGame.player.playerId ?
       this.firstPlayerGame : this.secondPlayerGame;
     console.log('currentTarget: ', this.currentGame.currentTarget);
+    console.log('cricketSettings', this.cricketSettings);
+    console.log('currentPlayerId', this.currentPlayer.playerId);
+    if (this.cricketSettings != null){
+    if(this.cricketSettings.gameType === 'practice' && this.currentPlayer.playerId ===9999){
+      this.randomizeTurn();
+    }
+    }
   }
   
+  randomizeTurn(){
+    const randomHits = Math.floor(Math.random() * 3);
+    console.log('cpu hits '+randomHits+ ' numbers');
+    for (let i = 0; i <= randomHits; i++) {
+    this.hit(this.currentGame.currentTarget);
+    }
+    this.onNextPlayer();
+    
+  }
+
+
   startNewTeamRound() {
     this.currentTeamRound = new CricketRoundTeam(this.currentPlayer.playerId, this.currentPlayer.teamId ? this.currentPlayer.teamId : 0);
     console.log('currentTeamRound: ', this.currentTeamRound);
@@ -253,6 +310,11 @@ console.table(this.playerList);
       console.log('currentPlayer', this.currentPlayer);
       console.log('currentPlayer', this.currentPlayerId);
       console.log('this.playerIdList', this.playerIdList);
+      //this.cricketService.setGameStart(true);   
+      // this.store.dispatch(new GameMeta({isStarted: true}))
+      // this.gameStarted$ = this.store.select(state => state.gameMeta);
+      // console.log('cricket component OnInIt  gameStarted:', this.gameStarted$.pipe);
+      this.startNewRound();
     }
 
     setQuickstartPlayerList() {
@@ -808,6 +870,9 @@ console.log('hitSection   secondPlayerGame: ', this.secondPlayerGame);
  gameOver(name: string){
   Swal.fire(name + ' Wins');
  }
+
+ ngOnDestroy(): void {
+}
 
 }
 

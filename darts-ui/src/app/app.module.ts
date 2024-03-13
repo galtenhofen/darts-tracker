@@ -9,6 +9,8 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { LoggerModule } from 'ngx-logger';
 import { environment } from '../environments/environment';
+// import { StoreModule } from '@ngrx/store';
+// import { reducer } from './store/game.reducer';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { environment } from '../environments/environment';
     SharedModule,
     CustomMaterialModule.forRoot(),
     AppRoutingModule,
+    //StoreModule.forRoot(reducer),
     LoggerModule.forRoot({
       serverLoggingUrl: `http://my-api/logs`,
       level: environment.logLevel,
